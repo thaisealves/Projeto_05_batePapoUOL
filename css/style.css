@@ -3,8 +3,9 @@
 
 @media screen and (max-width: 900px) {
     body {
-        background-color: #e5e5e5;
+        background-color: #F3F3F3;
         font-family: 'Roboto', sans-serif;
+        width: 100%;
     }
 
     header, footer{
@@ -28,14 +29,26 @@
     header{
         top: 0;
     }
-
+    main{
+        padding: 106px 0px;
+        width: 100%;
+        overflow-wrap: break-word;
+    }
+    main li {
+        border-radius: 2px;
+        padding: 10px 9px;
+        box-sizing: border-box;
+        margin: 5px 0;
+        font-size: 14px;
+        line-height: 20px;
+    }
     footer{
         bottom: 0;
     }
     footer textarea{
         border: none;
         width: 70%;
-        height: 70px;
+        max-height: 70px;
         line-height: 70px; /* putting the placeholder in the middle of the line */
         font-family: 'Roboto', sans-serif;
     }
@@ -49,5 +62,20 @@
         font-size: 18px;
         color: black;
     }
-    
+    .privateMsg{
+        background-color: #FFDEDE;
+    }
+    .groupMsg{
+      background-color:#FFFFFF;
+    }
+    .statusMsg{
+        background-color: #DCDCDC;
+    }
+    .time{
+        color: #AAAAAA;
+        font-weight: 300;
+    }
+    .name{
+        font-weight: bold;
+    }
 }
