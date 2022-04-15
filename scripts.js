@@ -1,7 +1,7 @@
 let messages = []; // messages we're going to collect from the API are going to be here
 
 const participant = {
-    name: "jorge"
+    name: "jou"
 } // name I'm putting as mine, like, the participant one 
 
 getMessages();
@@ -22,7 +22,7 @@ function getMessages() {
    
     promise.then(loadData);
 } // getting the messages from the API 
-
+setInterval(getMessages, 2000)
 function error() {
     console.log(error.response);
 } //if something goes wrong on the part off getting messages
@@ -32,10 +32,10 @@ function loadData(response) {
     printMessages();
     console.log("deu certo")
 } // if everything goes well, we're putting the messages on our array **THE PROMISE HAS A RESPONSE
-
+setInterval(loadData, 4000); // keep on showing messages at the time it appears 
 function printMessages(){
     const ulMessages = document.querySelector("main ul")
-    
+    ulMessages.innerHTML ="";
     for (let i = 0; i < messages.length; i++){
         ulMessages.innerHTML += `
         <li id=${i}>
@@ -53,5 +53,11 @@ function printMessages(){
         if (messages[i].type === "private_message"){
             document.getElementById(`${i}`).classList.add("privateMsg")
         }
+        
     }
+    pageScroll();
+}
+function pageScroll() {
+    window.scrollBy(0,1);
+    setTimeout(pageScroll,10);
 }
