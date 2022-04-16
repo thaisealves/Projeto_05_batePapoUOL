@@ -78,4 +78,10 @@
     .name{
         font-weight: bold;
     }
+    .not-bold{
+        font-weight: 400;
+    }
+    .hidden{
+        display: none;
+    }
 }
