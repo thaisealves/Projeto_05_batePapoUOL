@@ -51,11 +51,53 @@
         max-height: 70px;
         line-height: 70px; /* putting the placeholder in the middle of the line */
         font-family: 'Roboto', sans-serif;
+        font-size: 18px;
     }
     footer textarea:focus{
         outline: none;
     }
-    ::placeholder{
+    .begin{
+        width: 100%;
+        height: 100%;
+        background-color: #FFFFFF;
+        z-index: 1;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .begin img{
+        width: 130px;
+        height: 92px;
+        margin-top: 20%;
+    }
+    .begin input{
+        width: 70%;
+        height: 54px;
+        border: 1px solid #D7D7D7;
+        border-radius: 9px;
+        text-align: center;
+        margin-top: 35%;
+    }
+    .begin input:focus{
+        outline: none;
+    }
+    .begin button{
+        background-color: #E7E7E7;
+        border-radius: 9px;
+        border: none;
+        width: 109px;
+        height: 45px;
+        color: #696969;
+        margin-top: 16px;
+    }
+    .begin ::placeholder{
+        text-align: center;
+        color: #AEAEAE;
+        font-style: none;
+        font-size: 18px;
+    }
+    footer ::placeholder{
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
         font-style: italic;
