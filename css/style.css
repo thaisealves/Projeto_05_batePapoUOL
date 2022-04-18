@@ -139,5 +139,19 @@
     }
     .hidden{
         display: none;
+        z-index: 0;
+    }
+    aside{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    aside > div{
+        background-color: rgba(0, 0, 0, 0.473);
+    }
+    .users{
+        background-color: #FFFFFF;
     }
 }

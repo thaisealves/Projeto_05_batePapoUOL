@@ -25,13 +25,30 @@
     </div>
     <header>
         <img src="/images/logo.png" alt="Logo 'Bate Papo UOL'">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon onclick="showUsers()" name="people"></ion-icon>
     </header>
 
     <main>
         <ul class="msg"></ul>
     </main>
 
+    <aside>
+        <div class="hidden">
+            <div>Escolha um contato para enviar mensagem:</div>
+            <ul class="users hidden"></ul>
+            <div>Escolha a visibilidade:</div>
+            <div>
+                <div>
+                    <ion-icon name="lock-open"></ion-icon>
+                    <span>Público</span>
+                </div>
+                <div>
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <span>Reservadamente</span>
+                </div>
+            </div>
+        </div>
+    </aside>
 
     <footer>
         <textarea type="text" placeholder="Escreva aqui..."></textarea>

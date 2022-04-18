@@ -1,16 +1,17 @@
 let messages = []; // messages we're going to collect from the API are going to be here
+let users = [];
 const participant = {
     name: ''
-} // name I'm putting as mine, like, the participant one 
+} // name I'm putting as mine, like, the participant one
 
-//if i press enter being in the textarea, this will happen 
+//if i press enter being in the textarea, this will happen
 let textEnter = document.querySelector("footer textarea")
-textEnter.addEventListener("keyup", function(event) {
+textEnter.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
-     event.preventDefault();//preventing the enterbutto to make the thing its used to do 
-     document.querySelector("footer ion-icon").click(); //making the 'on-click' to work by pressing enter
+        event.preventDefault();//preventing the enterbutto to make the thing its used to do
+        document.querySelector("footer ion-icon").click(); //making the 'on-click' to work by pressing enter
     }
-  });
+});
 
 function entering() {
     document.querySelector(".login").classList.add("hidden")
@@ -26,7 +27,8 @@ function entering() {
 function error(err) {
     if (err.response.status === 400) {
         alert("Nome já utilizado, você deve escolher outro!")
-        setTimeout(entering, 5000)
+        document.querySelector(".login").classList.remove("hidden")
+        document.querySelector(".loading").classList.add("hidden")
     }
 } //if something goes wrong on the part of getting messages (username already used)
 
@@ -35,30 +37,33 @@ function getMessages() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
 
     promise.then(loadData);
-} // getting the messages from the API 
+} // getting the messages from the API
 
 function loadData(response) {
     messages = response.data;
-    printMessages();
+    printMessages(messages);
 } // if everything goes well, we're putting the messages on our array **THE PROMISE HAS A RESPONSE
 
 function keepStatus() {
     axios.post("https://mock-api.driven.com.br/api/v6/uol/status", participant);
-}   //see if I'm here, still logged and everything 
+}   //see if I'm here, still logged and everything
 setInterval(keepStatus, 4000);
 
-//the messages appearing on the "app" 
-function printMessages() {
+//the messages appearing on the "app"
+function printMessages(messages) {
     const ulMessages = document.querySelector("main ul")
     ulMessages.innerHTML = "";
     for (let i = 0; i < messages.length; i++) {
         ulMessages.innerHTML += `
-        <li id=${i}>
+        <li >
         <span class="time">(${messages[i].time})</span>
-        <span class="name">${messages[i].from}</span> 
+        <span class="name">${messages[i].from}</span>
         
-        ${messages[i].text}
+        <span>${messages[i].text}</span>
         </li>`
+        ulMessages.lastChild.id = i;
+        
+    let liId = document.querySelector("main li")
         if (messages[i].type === "status") {
             document.getElementById(`${i}`).classList.add("statusMsg")
         }
@@ -80,20 +85,22 @@ function printMessages() {
             }
         }
         if (messages[i].type === "message" || messages[i].type === "status") {
-            document.getElementById(`${i}`).querySelector(".name").innerHTML += ` <span class='not-bold'>para</span> ${messages[i].to}`
+            document.getElementById(`${i}`).querySelector(".name").innerHTML += `<span class='not-bold'> para</span> ${messages[i].to}`
         }
         if (messages[i].type === "private_message") {
-            document.getElementById(`${i}`).querySelector(".name").innerHTML += ` <span class='not-bold'> reservadamente para</span> ${messages[i].to}`
+            document.getElementById(`${i}`).querySelector(".name").innerHTML += `<span class='not-bold'> reservadamente para</span> ${messages[i].to}`
         }
-
+       
     }
-
-    pageScroll();
+    document.querySelector("main").scrollIntoView(false)
+    // setInterval(pageScroll, 30);
     setInterval(getMessages, 4000);
 }
+
+
 function pageScroll() {
     window.scrollBy(0, 1);
-    setTimeout(pageScroll, 25);
+
 }
 
 function publicMessage() {
@@ -111,4 +118,31 @@ function publicMessage() {
         alert("Desconectado da sala, vamos te conectar novamente")
         window.location.reload();
     })
+}
+
+//looking for the participants
+
+function getUsers(){
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants')
+    promise.then(loadUsers);
+}
+
+function loadUsers(response){
+    users = response.data;
+    printUsers();
+
+}
+function printUsers(){
+    const ulUsers = document.querySelector(".users")
+    ulUsers.innerHTML = "";
+    for (let i = 0; i < users.length; i++) {
+        ulUsers.innerHTML += `
+        <li id=${i}>
+        ${users[i].name}
+        </li>`
+}
+}
+function showUsers(){
+    document.querySelector("aside div").classList.toggle("hidden");
+    document.querySelector(".users").classList.toggle("hidden");
 }
