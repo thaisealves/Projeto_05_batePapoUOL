@@ -68,7 +68,6 @@ function printMessages(messages) {
         </li>`
         ulMessages.lastChild.id = i;
 
-        let liId = document.querySelector("main li")
         if (messages[i].type === "status") {
             document.getElementById(`${i}`).classList.add("statusMsg")
         }
@@ -82,7 +81,7 @@ function printMessages(messages) {
 
         }
         if (messages[i].type === "private_message") {
-            if (messages[i].to !== participant.name || messages[i].from !== participant.name) {
+            if (messages[i].to !== participant.name && messages[i].from !== participant.name) {
                 document.getElementById(`${i}`).classList.add("hidden")
             }
             else {
@@ -161,16 +160,19 @@ function msgSender(el) {
     if (msgTo !== "Todos") {
         document.querySelector("footer p").innerHTML = `Enviando para ${msgTo} (reservadamente)`
     }
+    if (msgTo === "Todos"){
+        document.querySelector("footer p").innerHTML = ""
+    }
 }
-console.log(msgType)
+
 function privacity (el){
-    if (el.innerHTML === "Reservadamente"){
+    if (el.querySelector("span").innerHTML === "Reservadamente"){
         msgType = "private_message";
-        console.log(msgType)
+        
     }
     else{
         msgType = "message";
-        console.log(msgType)
     }
 
+    el.querySelector(".mark").classList.remove("hidden")
 }
