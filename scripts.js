@@ -19,10 +19,12 @@ function entering() {
     participant.name = document.querySelector(".begin input").value;
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", participant);
     promise.catch(error)
-    promise.then(getMessages)// keep on showing messages at the time it appears, reloading the messages all the time
+    promise.then(msgInterval)// keep on showing messages at the time it appears, reloading the messages all the time
 
 } // loging into the page, like, putting my name in the participants area
-
+function msgInterval(){
+    setInterval(getMessages, 3000);
+}
 
 function error(err) {
     if (err.response.status === 400) {
@@ -92,16 +94,9 @@ function printMessages(messages) {
         }
        
     }
-    document.querySelector("main").scrollIntoView(false)
-    // setInterval(pageScroll, 30);
-    setInterval(getMessages, 4000);
+    document.querySelector("main").scrollIntoView(false) //putting in the last msg everytime it reload
 }
 
-
-function pageScroll() {
-    window.scrollBy(0, 1);
-
-}
 
 function publicMessage() {
     let text = document.querySelector("textarea");
@@ -143,6 +138,10 @@ function printUsers(){
 }
 }
 function showUsers(){
-    document.querySelector("aside div").classList.toggle("hidden");
-    document.querySelector(".users").classList.toggle("hidden");
+    document.querySelector("aside").classList.remove("hidden");
+    document.querySelector("aside").classList.add("upper");
+}
+function hideUsers(){
+    document.querySelector("aside").classList.add("hidden");
+    document.querySelector("aside").classList.remove("upper");
 }

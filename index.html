@@ -32,11 +32,12 @@
         <ul class="msg"></ul>
     </main>
 
-    <aside>
-        <div class="hidden">
-            <div>Escolha um contato para enviar mensagem:</div>
+    <aside class="hidden">
+        <div onclick="hideUsers()"  class="empty"></div>
+        <div class="participants">
+            <div><strong> Escolha um contato para enviar mensagem:</strong></div>
             <ul class="users hidden"></ul>
-            <div>Escolha a visibilidade:</div>
+            <div><strong> Escolha a visibilidade:</strong></div>
             <div>
                 <div>
                     <ion-icon name="lock-open"></ion-icon>
