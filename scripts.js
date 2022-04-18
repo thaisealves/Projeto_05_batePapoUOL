@@ -135,7 +135,7 @@ function printUsers() {
     ulUsers.innerHTML +=
         `<li class="all">
     <ion-icon name="people"></ion-icon>
-    <span onclick="msgType(this)">Todos</span>
+    <span onclick="msgSender(this)">Todos</span>
     </li>`
 
     for (let i = 0; i < users.length; i++) {
@@ -166,6 +166,11 @@ function msgSender(el) {
 }
 
 function privacity (el){
+    if (document.querySelector("selected")!== null){
+
+        el.querySelector(".mark").classList.add("hidden")
+    el.querySelector(".mark").classList.remove("selected")
+    }
     if (el.querySelector("span").innerHTML === "Reservadamente"){
         msgType = "private_message";
         
@@ -175,4 +180,6 @@ function privacity (el){
     }
 
     el.querySelector(".mark").classList.remove("hidden")
+
+    el.querySelector(".mark").classList.add("selected")
 }
