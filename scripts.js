@@ -2,9 +2,19 @@ let messages = []; // messages we're going to collect from the API are going to 
 const participant = {
     name: ''
 } // name I'm putting as mine, like, the participant one 
+
+//if i press enter being in the textarea, this will happen 
 let textEnter = document.querySelector("footer textarea")
-textEnter.addEventListener("keyup")
+textEnter.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();//preventing the enterbutto to make the thing its used to do 
+     document.querySelector("footer ion-icon").click(); //making the 'on-click' to work by pressing enter
+    }
+  });
+
 function entering() {
+    document.querySelector(".login").classList.add("hidden")
+    document.querySelector(".loading").classList.remove("hidden")
     participant.name = document.querySelector(".begin input").value;
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", participant);
     promise.catch(error)

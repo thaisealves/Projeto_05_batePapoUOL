@@ -14,8 +14,14 @@
 <body>
     <div class="begin">
         <img src="/images/logo.png" alt="Logo 'Bate Papo UOL'">
-        <input type="text" placeholder="Digite seu nome">
-        <button onclick="entering()">Entrar</button>
+        <div class="login">
+            <input type="text" placeholder="Digite seu nome">
+            <button onclick="entering()">Entrar</button>
+        </div>
+        <div class="loading hidden">
+            <img src="https://c.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif" alt="loading">
+            <span>Entrando...</span>
+        </div>
     </div>
     <header>
         <img src="/images/logo.png" alt="Logo 'Bate Papo UOL'">
@@ -25,9 +31,9 @@
     <main>
         <ul class="msg"></ul>
     </main>
-   
 
-<footer>
+
+    <footer>
         <textarea type="text" placeholder="Escreva aqui..."></textarea>
         <ion-icon onclick="publicMessage()" name="paper-plane-outline"></ion-icon>
     </footer>

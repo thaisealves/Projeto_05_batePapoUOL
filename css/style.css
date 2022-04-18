@@ -66,10 +66,20 @@
         flex-direction: column;
         align-items: center;
     }
-    .begin img{
+    .login, .loading{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .begin > img{
         width: 130px;
         height: 92px;
         margin-top: 20%;
+    }
+    .loading img{
+        width: 110px;
+        margin-top: 35%;
     }
     .begin input{
         width: 70%;
@@ -86,9 +96,13 @@
         background-color: #E7E7E7;
         border-radius: 9px;
         border: none;
-        width: 109px;
-        height: 45px;
+        width: 110px;
+        height: 44px;
         color: #696969;
+        margin-top: 16px;
+    }
+    .begin span{
+        font-size: 18px;
         margin-top: 16px;
     }
     .begin ::placeholder{
