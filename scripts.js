@@ -1,5 +1,7 @@
 let messages = []; // messages we're going to collect from the API are going to be here
 let users = [];
+let msgTo = "Todos";
+let msgType = "message"
 const participant = {
     name: ''
 } // name I'm putting as mine, like, the participant one
@@ -22,8 +24,9 @@ function entering() {
     promise.then(msgInterval)// keep on showing messages at the time it appears, reloading the messages all the time
 
 } // loging into the page, like, putting my name in the participants area
-function msgInterval(){
+function msgInterval() {
     setInterval(getMessages, 3000);
+    setInterval(getUsers, 10000)
 }
 
 function error(err) {
@@ -64,8 +67,8 @@ function printMessages(messages) {
         <span>${messages[i].text}</span>
         </li>`
         ulMessages.lastChild.id = i;
-        
-    let liId = document.querySelector("main li")
+
+        let liId = document.querySelector("main li")
         if (messages[i].type === "status") {
             document.getElementById(`${i}`).classList.add("statusMsg")
         }
@@ -79,7 +82,7 @@ function printMessages(messages) {
 
         }
         if (messages[i].type === "private_message") {
-            if (messages[i].to !== participant.name) {
+            if (messages[i].to !== participant.name || messages[i].from !== participant.name) {
                 document.getElementById(`${i}`).classList.add("hidden")
             }
             else {
@@ -92,7 +95,7 @@ function printMessages(messages) {
         if (messages[i].type === "private_message") {
             document.getElementById(`${i}`).querySelector(".name").innerHTML += `<span class='not-bold'> reservadamente para</span> ${messages[i].to}`
         }
-       
+
     }
     document.querySelector("main").scrollIntoView(false) //putting in the last msg everytime it reload
 }
@@ -102,9 +105,9 @@ function publicMessage() {
     let text = document.querySelector("textarea");
     const message = {
         from: participant.name,
-        to: "Todos",
+        to: msgTo,
         text: text.value,
-        type: "message"
+        type: msgType
     }
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", message);
     text.value = ''; // here I can clear the input area, so I can write another thing
@@ -117,31 +120,57 @@ function publicMessage() {
 
 //looking for the participants
 
-function getUsers(){
+function getUsers() {
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants')
     promise.then(loadUsers);
 }
 
-function loadUsers(response){
+function loadUsers(response) {
     users = response.data;
     printUsers();
 
 }
-function printUsers(){
+function printUsers() {
     const ulUsers = document.querySelector(".users")
     ulUsers.innerHTML = "";
+    ulUsers.innerHTML +=
+        `<li class="all">
+    <ion-icon name="people"></ion-icon>
+    <span onclick="msgType(this)">Todos</span>
+    </li>`
+
     for (let i = 0; i < users.length; i++) {
         ulUsers.innerHTML += `
         <li id=${i}>
-        ${users[i].name}
+        <ion-icon name="person-circle"></ion-icon>
+        <span onclick="msgSender(this)" >${users[i].name} </span>
         </li>`
+    }
 }
-}
-function showUsers(){
+function showUsers() {
     document.querySelector("aside").classList.remove("hidden");
     document.querySelector("aside").classList.add("upper");
 }
-function hideUsers(){
+function hideUsers() {
     document.querySelector("aside").classList.add("hidden");
     document.querySelector("aside").classList.remove("upper");
+}
+
+function msgSender(el) {
+    msgTo = el.innerHTML;
+    if (msgTo !== "Todos") {
+        document.querySelector("footer p").innerHTML = `Enviando para ${msgTo} (reservadamente)`
+    }
+}
+console.log(msgType)
+function privacity (el){
+    if (el.innerHTML === "Reservadamente"){
+        msgType = "private_message";
+        console.log(msgType)
+    }
+    else{
+        msgType = "message";
+        console.log(msgType)
+    }
+
 }
